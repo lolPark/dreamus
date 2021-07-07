@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <!-- Profile dev -->
+    <springProfile name="dev">
+
+        <logger name="com.dreamus.lolpark.purchase" level="DEBUG" />
+        <logger name="org.springframework" level="INFO"/>
+        <logger name="java.sql" level="DEBUG"/>
+        <logger name="org.springframework.jdbc.core.JdbcTemplate" level="DEBUG"/>
+        <logger name="org.hibernate.SQL" level="DEBUG"/>
+        <logger name="org.hibernate.type.descriptor.sql" level="DEBUG"/>
+
+        <!-- Console log -->
+        <root level="INFO">
+            <appender-ref ref="CONSOLE" />
+        </root>
+
+    </springProfile>
+
+
+</configuration>

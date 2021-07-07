@@ -1,0 +1,79 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'com.dreamus.lolpark'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+bootJar {
+    launchScript()
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('springCloudVersion', "2020.0.3")
+    set('cacheApiVersion', "1.1.1")
+    set('ehcacheVersion', "3.8.1")
+    set('modelMapperVersion', '2.3.9')
+    set('openCsvVersion', '5.4')
+    set('querydslVersion', "4.3.1")
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
+
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    implementation "com.opencsv:opencsv:${openCsvVersion}"
+
+    // querydsl
+    implementation("com.querydsl:querydsl-jpa")
+    implementation("com.querydsl:querydsl-core:${querydslVersion}")
+    implementation("com.querydsl:querydsl-apt:${querydslVersion}")
+
+    annotationProcessor("com.querydsl:querydsl-jpa")
+    annotationProcessor("com.querydsl:querydsl-apt:${querydslVersion}:jpa")
+    annotationProcessor("org.springframework.boot:spring-boot-starter-data-jpa")
+
+
+    // model mapper
+    implementation("org.modelmapper:modelmapper:${modelMapperVersion}")
+
+    implementation("javax.cache:cache-api:${cacheApiVersion}")
+    implementation("org.ehcache:ehcache:${ehcacheVersion}")
+
+
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'com.h2database:h2'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
