@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -98,8 +99,8 @@ public class ApplicationStartUp implements CommandLineRunner {
     }
 
     private CSVReader getCsvReader(String fileName) throws Exception {
-        Reader userReader = Files.newBufferedReader(Paths.get(resourceLoader.getResource("classpath:" + fileName).getURI()));
-        return new CSVReader(userReader);
+        InputStreamReader inputStreamReader = new InputStreamReader(resourceLoader.getResource("classpath:" + fileName).getInputStream(), "UTF-8");
+        return new CSVReader(inputStreamReader);
     }
 
     private <T> List<T> readLine(CSVReader csvReader, Function<String[], T> function) throws Exception {
